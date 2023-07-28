@@ -53,11 +53,9 @@ module.exports = function (app) {
       let stockData;
       const { stock, like } = req.query;
       let liker = req.ip;
-      console.log(liker);
       if (like == 'true') {
         liker = hashIP(liker)
       }
-      console.log(liker);
       if (Array.isArray(stock)) {
         const stockResponse1 = axios.get(`https://stock-price-checker-proxy.freecodecamp.rocks/v1/stock/${stock[0]}/quote`);
         const stockResponse2 = axios.get(`https://stock-price-checker-proxy.freecodecamp.rocks/v1/stock/${stock[1]}/quote`);
