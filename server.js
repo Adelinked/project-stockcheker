@@ -7,8 +7,32 @@ const cors        = require('cors');
 const apiRoutes         = require('./routes/api.js');
 const fccTestingRoutes  = require('./routes/fcctesting.js');
 const runner            = require('./test-runner');
+const helmet            = require('helmet');
 
 const app = express();
+
+app.use(helmet());
+
+// Configure Content Security Policy (CSP)
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],              // Allow only resources from the same origin
+      scriptSrc: ["'self'"],               // Allow only scripts from the same origin
+      styleSrc: ["'self'"],                // Allow only styles from the same origin
+      imgSrc: ["'self'"],                  // Allow only images from the same origin
+      objectSrc: ["'none'"],               // Don't allow loading of any objects (e.g., Flash)
+      fontSrc: ["'self'"],                 // Allow only fonts from the same origin
+      mediaSrc: ["'self'"],                // Allow only media (audio/video) from the same origin
+      frameSrc: ["'none'"],                // Don't allow loading of any frames/iframes
+      connectSrc: ["'self'"],              // Allow only connections to the same origin
+      childSrc: ["'self'"],                // Allow only sources for worker, embedded iframe, or similar content
+      formAction: ["'self'"],              // Allow only form submissions to the same origin
+      frameAncestors: ["'none'"],          // Don't allow embedding in frames/iframes
+    },
+  })
+);
+
 
 app.use('/public', express.static(process.cwd() + '/public'));
 
