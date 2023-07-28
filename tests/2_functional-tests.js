@@ -63,5 +63,21 @@ suite('Functional Tests', function () {
           done();
         });
     });
+    test("Test Viewing two stocks and liking them", function (done) {
+      chai
+        .request(server)
+        .get("/api/stock-prices?stock=GOOG&stock=MSFT&like=true")
+        .end(function (err, res) {
+          assert.equal(res.status, 200);
+          const { stockData } = res.body
+          assert.equal(stockData[0].stock, "GOOG");
+          assert.equal(typeof (stockData[0].price), "number");
+          assert.equal(typeof (stockData[0].rel_likes), "number");
+          assert.equal(stockData[1].stock, "MSFT");
+          assert.equal(typeof (stockData[1].price), "number");
+          assert.equal(typeof (stockData[1].rel_likes), "number");
+          done();
+        });
+    });
   });
 });
