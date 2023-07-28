@@ -34,7 +34,7 @@ suite('Functional Tests', function () {
           done();
         });
     });
-    test("Test Viewing one stock and liking it", function (done) {
+    test("Test Viewing the same stock and liking it again", function (done) {
       chai
         .request(server)
         .get("/api/stock-prices?stock=MSFT&like=true")
